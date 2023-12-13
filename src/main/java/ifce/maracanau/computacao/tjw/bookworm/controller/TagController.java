@@ -4,11 +4,12 @@ import ifce.maracanau.computacao.tjw.bookworm.controller.exception.TupleNotFound
 import ifce.maracanau.computacao.tjw.bookworm.model.Tag;
 import ifce.maracanau.computacao.tjw.bookworm.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 //TODO restante do metodos do controller de tag
-@RestController
+@Controller
 @RequestMapping("/tags")
 public class TagController {
     TagService tagService;
@@ -27,9 +28,10 @@ public class TagController {
     public Tag getTag(@PathVariable long id) throws TupleNotFoundException {
         return tagService.getTag(id) ;
     }
-    @PostMapping("")
-    public Tag postTag(@RequestBody Tag tag) {
-        return tagService.postTag(tag);
+    @PostMapping("/save")
+    public String postTag(@ModelAttribute("tag") Tag tag) {
+        tagService.postTag(tag);
+        return "redirect:/home";
     }
 
     @PutMapping("/{id}")
@@ -37,8 +39,9 @@ public class TagController {
         return tagService.updateTag(id, newTag);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteTag(@PathVariable long id) {
+    @GetMapping("/delete")
+    public String deleteTag(@RequestParam long id) {
         tagService.deleteTag(id);
+        return "redirect:/home";
     }
 }

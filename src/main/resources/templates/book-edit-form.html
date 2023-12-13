@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookworm</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Wendy+One&display=swap">
+    <link rel="stylesheet" th:href="@{/edit-style.css}">
+
+</head>
+<body>
+<div class="navbar">
+    <h1 style="margin: 0;">Bookworm</h1>
+</div>
+
+<div class="edit-table">
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Número de Páginas</th>
+            <th>Autor</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.name}"></td>
+            <td th:text="${book.pageQuantity}"></td>
+            <td th:text="${book.authorName}"></td>
+            <td>
+                <a th:href="@{/process-book-form(id=${book.id})}">Editar</a>
+                <a th:href="@{/books/delete(id=${book.id})}">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

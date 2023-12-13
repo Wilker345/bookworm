@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookworm</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Wendy+One&display=swap">
+    <link rel="stylesheet" th:href="@{/edit-style.css}">
+
+</head>
+<body>
+<div class="navbar">
+    <h1 style="margin: 0;">Bookworm</h1>
+</div>
+
+<div class="edit-table">
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tag : ${tags}">
+            <td th:text="${tag.name}"></td>
+            <td>
+                <a th:href="@{/process-tag-form(id=${tag.id})}">Editar</a>
+                <a th:href="@{/tags/delete(id=${tag.id})}">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

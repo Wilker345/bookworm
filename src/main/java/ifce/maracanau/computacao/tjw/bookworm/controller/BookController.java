@@ -4,11 +4,12 @@ import ifce.maracanau.computacao.tjw.bookworm.controller.exception.TupleNotFound
 import ifce.maracanau.computacao.tjw.bookworm.model.Book;
 import ifce.maracanau.computacao.tjw.bookworm.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-//TODO restante das funcoes do controller de book
-@RestController
+
+@Controller
 @RequestMapping("/books")
 public class BookController {
     BookService bookService;
@@ -26,9 +27,10 @@ public class BookController {
     public Book getBook(@PathVariable long id) throws TupleNotFoundException {
         return bookService.getBook(id) ;
     }
-    @PostMapping("")
-    public Book postBook(@RequestBody Book book) {
-        return bookService.postBook(book);
+    @PostMapping("/save")
+    public String postBook(@ModelAttribute("book") Book book) {
+        bookService.postBook(book);
+        return "redirect:/home";
     }
 
     @PutMapping("/{id}")
@@ -36,9 +38,10 @@ public class BookController {
         return bookService.updateBook(id, newBook);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable long id) {
+    @GetMapping("/delete")
+    public String deleteBook(@RequestParam("id") long id) {
         bookService.deleteBook(id);
+        return "redirect:/home";
     }
 
 }

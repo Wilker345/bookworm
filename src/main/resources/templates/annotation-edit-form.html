@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookworm</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Wendy+One&display=swap">
+    <link rel="stylesheet" th:href="@{/edit-style.css}">
+
+</head>
+<body>
+<div class="navbar">
+    <h1 style="margin: 0;">Bookworm</h1>
+</div>
+
+<div class="edit-table">
+    <table>
+        <thead>
+        <tr>
+            <th>Texto</th>
+            <th>Página</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="annotation : ${annotations}">
+            <td th:text="${annotation.getText()}"></td>
+            <td th:text="${annotation.getPage()}"></td>
+            <td>
+                <a th:href="@{/process-annotation-form(id=${annotation.id})}">Editar</a>
+                <a th:href="@{/annotations/delete(id=${annotation.id})}">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

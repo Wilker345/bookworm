@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Livro</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Wendy+One&display=swap">
+    <link rel="stylesheet" th:href="@{/post-style.css}">
+</head>
+<body>
+<div class="navbar">
+    <h1 style="margin: 0;">Bookworm</h1>
+</div>
+<form action=#
+      th:object="${annotation}"
+      th:action="@{/annotations/save}"
+      method="POST">
+    <label for="texto">Texto:</label>
+    <input type="text" th:field="*{text}" id="texto" name="texto" required>
+
+    <label for="pagina">Página:</label>
+    <input type="number" th:field="*{page}" id="pagina" name="paginas" required>
+
+    <label for="livro">Pk dolivro:</label>
+    <input type="number" th:field="*{book}" id="livro" name="livro" required>
+
+    <button type="submit">Enviar</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookworm</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Wendy+One&display=swap">
+    <link rel="stylesheet" th:href="@{/home-style.css}">
+
+</head>
+<body>
+    <div class="navbar">
+        <h1 style="margin: 0;">Bookworm</h1>
+    </div>
+
+    <!-- Coluna 1: Livros -->
+    <div class="column">
+        <h2>Livros</h2>
+        <a href="/book-edit-form" class="help-icon">
+            <span class="tooltip">Editar</span>?
+        </a>
+        <ul>
+            <li th:each="book : ${books}">
+                Nome: <span th:text="${book.name}"></span><br>
+                <span th:if="${not #strings.isEmpty(book.pageQuantity)}"> Número de Páginas:
+                    <span th:text="${book.pageQuantity}"></span><br>
+                <span th:if="${not #strings.isEmpty(book.authorName)}"> Autor:
+                    <span th:text="${book.authorName}"></span><br>
+                </span>
+            </li>
+            <li>
+                <a th:href="@{/book-form}" class="circle-button">+</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Coluna 2: Anotações -->
+    <div class="column">
+        <h2>Anotações</h2>
+        <a href="/annotation-edit-form" class="help-icon">
+            <span class="tooltip">Editar</span>?
+        </a>
+        <ul>
+            <li th:each="annotation : ${annotations}">
+                <div class="anotacao-texto" th:text="${annotation.text}"></div>
+                <div class="anotacao-info">
+                    <span th:text="${annotation.book.getName()}"></span>
+                     <span th:text="${', Página ' + annotation.page}"></span>
+                </div>
+            </li>
+            <li>
+                <a th:href="@{/annotation-form}" class="circle-button">+</a>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- Coluna 3: Tags -->
+    <div class="column">
+    <h2>Tags</h2>
+        <a href="/tag-edit-form" class="help-icon">
+            <span class="tooltip">Editar</span>?
+        </a>
+        <ul class="tag-list">
+            <li class="tag" th:each="tag, iterStat : ${tags}"
+                th:id="'tag-' + ${iterStat.index}"
+                th:class="'color-' + (${iterStat.index} % 5 + 1)">
+                <span th:text="${tag.name}"></span>
+            </li>
+        </ul>
+        <a th:href="@{/tag-form}" class="circle-button">+</a>
+    </div>
+</body>
+
+</html>

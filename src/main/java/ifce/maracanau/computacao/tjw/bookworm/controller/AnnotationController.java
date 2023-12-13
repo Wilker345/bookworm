@@ -4,12 +4,13 @@ import ifce.maracanau.computacao.tjw.bookworm.controller.exception.TupleNotFound
 import ifce.maracanau.computacao.tjw.bookworm.model.Annotation;
 import ifce.maracanau.computacao.tjw.bookworm.service.AnnotationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 //TODO restante das funcoes do controller de annotation
-@RestController
+@Controller
 @RequestMapping("/annotations")
 public class AnnotationController {
     AnnotationService annotationService;
@@ -28,9 +29,10 @@ public class AnnotationController {
     public Annotation getAnnotation(@PathVariable long id) throws TupleNotFoundException {
         return annotationService.getAnnotation(id) ;
     }
-    @PostMapping("")
-    public Annotation postAnnotation(@RequestBody Annotation annotation) {
-        return annotationService.postAnnotation(annotation);
+    @PostMapping("/save")
+    public String postAnnotation(@ModelAttribute("annotation") Annotation annotation) {
+        annotationService.postAnnotation(annotation);
+        return "redirect:/home";
     }
 
     @PutMapping("/{id}")
@@ -38,8 +40,10 @@ public class AnnotationController {
         return annotationService.updateAnnotation(id, newAnnotation);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteAnnotation(@PathVariable long id) {
+    @GetMapping("/delete")
+    public String deleteAnnotation(@RequestParam long id) {
         annotationService.deleteAnnotation(id);
+        return "redirect:/home";
     }
+
 }

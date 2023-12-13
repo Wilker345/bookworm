@@ -12,6 +12,7 @@ public class Annotation {
     private long id;
     @Column(nullable = false, columnDefinition = "TEXT NOT NULL")
     private String text;
+    @Column(nullable = true)
     private int page;
     @ManyToOne
     @JsonBackReference
